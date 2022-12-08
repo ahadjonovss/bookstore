@@ -43,7 +43,7 @@ class AppRoutes{
       case RouteName.mngUsers:
         return MaterialPageRoute(builder: (_)=>const ManageUsersPage());
       case RouteName.adminPage:
-        return MaterialPageRoute(builder: (_)=>const AdminPage());
+        return MaterialPageRoute(builder: (_)=> AdminPage());
 
     //auth pages
       case RouteName.signIn:

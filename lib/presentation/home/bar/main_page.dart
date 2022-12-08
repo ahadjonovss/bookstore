@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:shopee/components/routes/app_routes.dart';
 import 'package:shopee/presentation/home/bar/tabs/cart_page.dart';
 import 'package:shopee/presentation/home/bar/tabs/home_page.dart';
 import 'package:shopee/presentation/home/bar/tabs/profile_page.dart';
@@ -22,7 +23,9 @@ class _MainPageState extends State<MainPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(actions:[IconButton(icon: const Icon(Icons.admin_panel_settings),onPressed: (){})] ),
+      appBar: AppBar(actions:[IconButton(icon: const Icon(Icons.admin_panel_settings),onPressed: (){
+        Navigator.pushNamed(context, RouteName.adminPage);
+      })] ),
       body: pages[currentPage],
       bottomNavigationBar: BottomNavigationBar(
         type: BottomNavigationBarType.fixed,

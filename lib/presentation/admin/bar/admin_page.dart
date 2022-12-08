@@ -1,4 +1,6 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:shopee/data/repositories/admin/admin_repository.dart';
 import 'package:shopee/presentation/admin/bar/tabs/manage_categories_page.dart';
 import 'package:shopee/presentation/admin/bar/tabs/manage_products_page.dart';
 import 'package:shopee/presentation/admin/bar/tabs/manage_users_page.dart';
@@ -16,6 +18,7 @@ class AdminPage extends StatelessWidget {
       ManageUsersPage(),
     ];
     return Scaffold(
+      appBar: AppBar(title: Text("Admin Page"),actions: [IconButton(onPressed: (){AdminRepository(firebaseFirestore: FirebaseFirestore.instance).createCategory();}, icon: Icon(Icons.add))],),
       body: pages[currentPage],
       bottomNavigationBar: BottomNavigationBar(
         items: const [
