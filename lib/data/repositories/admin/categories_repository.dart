@@ -1,17 +1,16 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:shopee/data/models/category_model.dart';
 
-class AdminRepository{
+class CategoriesRepository{
 
   final FirebaseFirestore firebaseFirestore;
-  AdminRepository({required this.firebaseFirestore});
+  CategoriesRepository({required this.firebaseFirestore});
 
-  Future createCategory()async{
-    final json={
-      'categoryName':"Nmadir",
-    };
-    await firebaseFirestore.collection("categories").add(json);
-  }
+  Future createCategory({required CategoryModel categoryModel})async{
+    DocumentReference docId = await firebaseFirestore.collection("categories").add(categoryModel.toJson());
+    await firebaseFirestore.collection("categories").doc(docId.id).update({
+      "categoryId": docId.id,
+  });}
 
   Future <CategoryModel> getCategoryByDocId(String docId) async {
     var data= await firebaseFirestore.collection("categories").doc(docId).get();
@@ -26,6 +25,15 @@ class AdminRepository{
             .map((doc) => CategoryModel.fromJson(doc.data()))
             .toList(),
       );
+
+  Future<void> deleteCategory({required String docId}) async{
+    try{
+      await firebaseFirestore.collection("categories").doc(docId).delete();
+    }on FirebaseException catch(e){
+      print(e.toString());
+    }
+  }
+
 
 
 
