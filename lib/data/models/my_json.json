@@ -1,0 +1,18 @@
+{
+  "category": "Nimadir",
+  "books": [
+    {
+      "name": "O'tgan kunlar",
+      "author": "Kimdir",
+      "price": 2000.0,
+      "dateOfPublish": "1988",
+      "description": "some",
+      "mainImage": "url",
+      "images": ["",""],
+      "bought": 0,
+      "rates": [0,1,2],
+      "category": "",
+      "count": 0
+    }
+  ]
+}

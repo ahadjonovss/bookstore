@@ -1,11 +1,8 @@
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
 import 'package:shopee/components/constants/image.dart';
 import 'package:shopee/components/routes/app_routes.dart';
 import 'package:shopee/components/widgets/text_widget.dart';
-import 'package:shopee/data/repositories/auth_repository.dart';
 import 'package:shopee/presentation/auth/widgets/button.dart';
 import 'package:shopee/presentation/auth/widgets/input_widget.dart';
 import 'package:shopee/presentation/auth/widgets/rich_text.dart';
@@ -62,7 +59,8 @@ class _SignUpPageState extends State<SignUpPage> {
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        textWidget("Sign In", fontsize: 24),
+                        textWidget("Sign Up"
+                            , fontsize: 24),
                         SizedBox(
                           height: MediaQuery.of(context).size.height * 0.06,
                         ),
@@ -93,7 +91,14 @@ class _SignUpPageState extends State<SignUpPage> {
                         SizedBox(
                           height: MediaQuery.of(context).size.height * 0.03,
                         ),
-                        AuthButton(email: email.text,password: password.text,isLogin: false,formKey: _formKey),
+                        InkWell(
+                            onTap: (){
+                              if(_formKey.currentState!.validate()){
+                                context.read<AuthViewModel>().signUp(email: email.text, password: password.text );
+                                Navigator.pushNamedAndRemoveUntil(context,RouteName.mainPage , (route) => false);
+                              }
+                            },
+                            child: AuthButton(isLogin: false)),
                         SizedBox(
                           height: MediaQuery.of(context).size.height * 0.03,
                         ),
