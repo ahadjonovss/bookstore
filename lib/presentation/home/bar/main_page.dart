@@ -22,7 +22,7 @@ class _MainPageState extends State<MainPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(leading: IconButton(icon: Icon(Icons.admin_panel_settings),onPressed: (){}),),
+      appBar: AppBar(actions:[IconButton(icon: const Icon(Icons.admin_panel_settings),onPressed: (){})] ),
       body: pages[currentPage],
       bottomNavigationBar: BottomNavigationBar(
         type: BottomNavigationBarType.fixed,

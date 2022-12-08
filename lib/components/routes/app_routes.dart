@@ -1,4 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:shopee/presentation/admin/bar/admin_page.dart';
+import 'package:shopee/presentation/admin/bar/tabs/manage_categories_page.dart';
+import 'package:shopee/presentation/admin/bar/tabs/manage_products_page.dart';
+import 'package:shopee/presentation/admin/bar/tabs/manage_users_page.dart';
 import 'package:shopee/presentation/auth/sign_in_page.dart';
 import 'package:shopee/presentation/auth/sing_up_page.dart';
 import 'package:shopee/presentation/home/bar/main_page.dart';
@@ -17,6 +21,12 @@ class RouteName{
   static const profilePage="profilePage";
   static const searchPage="searchPage";
   static const mainPage="mainPage";
+
+  //admin pages
+  static const mngUsers="mngUsers";
+  static const mngProducts="mngProducts";
+  static const mngCategories="mngCategories";
+  static const adminPage="adminPage";
 }
 
 class AppRoutes{
@@ -25,14 +35,27 @@ class AppRoutes{
     dynamic args=settings.arguments;
 
     switch(settings.name){
+      //admin pages
+      case RouteName.mngCategories:
+        return MaterialPageRoute(builder: (_)=>const ManageCategoriesPage());
+      case RouteName.mngProducts:
+        return MaterialPageRoute(builder: (_)=>const ManageProductsPage());
+      case RouteName.mngUsers:
+        return MaterialPageRoute(builder: (_)=>const ManageUsersPage());
+      case RouteName.adminPage:
+        return MaterialPageRoute(builder: (_)=>const AdminPage());
+
+    //auth pages
       case RouteName.signIn:
         return MaterialPageRoute(builder: (_)=>const SignInPage());
-      case RouteName.homePage:
-        return MaterialPageRoute(builder: (_)=>const HomePage());
       case RouteName.splash:
         return MaterialPageRoute(builder: (_)=> const SplashPage());
       case RouteName.signUp:
         return MaterialPageRoute(builder: (_)=>const SignUpPage());
+
+        //home pages
+      case RouteName.homePage:
+        return MaterialPageRoute(builder: (_)=>const HomePage());
       case RouteName.cartPage:
         return MaterialPageRoute(builder: (_)=>const CartPage());
       case RouteName.profilePage:
