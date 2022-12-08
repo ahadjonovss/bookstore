@@ -21,7 +21,7 @@ class AdminPage extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: const Text("Admin Page"),
-        actions: [IconButton(onPressed: () {context.read<CategoriesViewModel>().addCategory(CategoryModel(categoryName: "Xayr", docId: ''));}, icon: Icon(Icons.add))],
+        actions: [IconButton(onPressed: () {context.read<CategoriesViewModel>().addCategory(CategoryModel(categoryName: "Abdurauf", docId: ''));}, icon: Icon(Icons.add))],
       ),
       body: pages[currentPage],
       bottomNavigationBar: BottomNavigationBar(

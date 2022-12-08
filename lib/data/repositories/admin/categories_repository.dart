@@ -29,8 +29,18 @@ class CategoriesRepository{
   Future<void> deleteCategory({required String docId}) async{
     try{
       await firebaseFirestore.collection("categories").doc(docId).delete();
+      print("Deleted Id: $docId");
     }on FirebaseException catch(e){
       print(e.toString());
+    }
+  }
+
+  Future<void> updateCategory({required CategoryModel categoryModel,required String docId}) async {
+    try{
+      await firebaseFirestore.collection("categories").doc(docId).update(categoryModel.toJson()).then((value) => print("Updated to ${categoryModel.categoryName}"));
+    }on FirebaseException catch(e){
+      print("Error: ${e.toString()}");
+
     }
   }
 
