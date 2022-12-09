@@ -1,5 +1,7 @@
 class Book {
   Book({
+    required this.categoryId,
+    required this.productId,
     required this.name,
     required this.author,
     required this.price,
@@ -14,6 +16,8 @@ class Book {
   });
 
   String name;
+  String categoryId;
+  String productId;
   String author;
   int price;
   String dateOfPublish;
@@ -37,9 +41,13 @@ class Book {
     rates: List<int>.from(json["rates"]??[].map((x) => x)),
     category: json["category"]??"no data",
     count: json["count"]??0,
+    categoryId: json["categoryId"]??"",
+    productId: json["productId"]??""
   );
 
   Map<String, dynamic> toJson() => {
+    "productId":productId,
+    "categoryId":categoryId,
     "name": name,
     "author": author,
     "price": price,
