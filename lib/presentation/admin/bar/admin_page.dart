@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:shopee/components/routes/app_routes.dart';
 import 'package:shopee/presentation/admin/bar/tabs/manage_categories_page.dart';
 import 'package:shopee/presentation/admin/bar/tabs/manage_products_page.dart';
 import 'package:shopee/presentation/admin/bar/tabs/manage_users_page.dart';
@@ -28,7 +29,12 @@ class _AdminPageState extends State<AdminPage> {
         actions: [
           IconButton(
               onPressed: () {
-                showDialog(context: context, builder: (context) => AddCategoryDialog(categoryController: categoryController));
+                if(currentPage==0){
+                  showDialog(context: context, builder: (context) => AddCategoryDialog(categoryController: categoryController));
+                }
+                if(currentPage==1){
+                  Navigator.pushNamed(context, RouteName.addProductPage);
+                }
               },
               icon: const Icon(Icons.add))
         ],

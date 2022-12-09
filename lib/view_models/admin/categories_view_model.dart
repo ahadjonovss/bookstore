@@ -6,7 +6,13 @@ class CategoriesViewModel extends ChangeNotifier{
   final CategoriesRepository categoriesRepository;
   CategoriesViewModel({required this.categoriesRepository});
 
-  Stream<List<CategoryModel>> listenCategories()=>categoriesRepository.getCategories();
+  Stream<List<CategoryModel>>? categories;
+
+  Stream<List<CategoryModel>> listenCategories(){
+    categories=categoriesRepository.getCategories() ;
+    return categoriesRepository.getCategories();
+
+  }
 
   addCategory(CategoryModel categoryModel)=>categoriesRepository.createCategory(categoryModel: categoryModel);
 

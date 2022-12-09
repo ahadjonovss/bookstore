@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:shopee/presentation/admin/bar/add_product_page.dart';
 import 'package:shopee/presentation/admin/bar/admin_page.dart';
 import 'package:shopee/presentation/admin/bar/tabs/manage_categories_page.dart';
 import 'package:shopee/presentation/admin/bar/tabs/manage_products_page.dart';
@@ -27,6 +28,7 @@ class RouteName{
   static const mngProducts="mngProducts";
   static const mngCategories="mngCategories";
   static const adminPage="adminPage";
+  static const addProductPage="addProductPage";
 }
 
 class AppRoutes{
@@ -43,7 +45,9 @@ class AppRoutes{
       case RouteName.mngUsers:
         return MaterialPageRoute(builder: (_)=>const ManageUsersPage());
       case RouteName.adminPage:
-        return MaterialPageRoute(builder: (_)=> AdminPage());
+        return MaterialPageRoute(builder: (_)=> const AdminPage());
+      case RouteName.addProductPage:
+        return MaterialPageRoute(builder: (_)=>  AddProductPage());
 
     //auth pages
       case RouteName.signIn:
