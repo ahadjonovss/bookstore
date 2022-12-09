@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:flutter/foundation.dart';
 import 'package:shopee/data/models/book_model.dart';
 
 class ProductsRepository {
@@ -28,15 +29,20 @@ class ProductsRepository {
     try{
       await firebaseFirestore.collection("products").doc(docId).delete();
     }on FirebaseException catch(e){
-      print("Error bo'ldi : ${e.toString()}");
+      if (kDebugMode) {
+        print("Error bo'ldi : ${e.toString()}");
+      }
     }
   }
 
   Future<void> updateCategory({required Book book,required String docId}) async {
     try{
+      // ignore: avoid_print
       await firebaseFirestore.collection("categories").doc(docId).update(book.toJson()).then((value) => print("Updated to ${book.name}"));
     }on FirebaseException catch(e){
-      print("Error: ${e.toString()}");
+      if (kDebugMode) {
+        print("Error: ${e.toString()}");
+      }
 
     }
   }
