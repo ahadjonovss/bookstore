@@ -1,6 +1,7 @@
 import 'package:animated_snack_bar/animated_snack_bar.dart';
 import 'package:flutter/material.dart';
 
+// ignore: non_constant_identifier_names
 Future<void> MySnackBar(context,{required String notification,required Color color,required Icon icon,Color texColor=Colors.white}){
   return AnimatedSnackBar(
       builder: ((context) {
