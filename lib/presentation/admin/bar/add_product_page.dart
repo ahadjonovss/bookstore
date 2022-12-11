@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:shopee/components/routes/app_routes.dart';
+import 'package:shopee/data/models/book_model.dart';
+import 'package:shopee/data/models/category_model.dart';
 import 'package:shopee/presentation/admin/bar/widgets/text_form_fields.dart';
 import 'package:shopee/view_models/admin/categories_view_model.dart';
 
@@ -31,8 +34,20 @@ class _AddProductPageState extends State<AddProductPage> {
   // List<String> images;
   TextEditingController count = TextEditingController();
 
+  String choosenCategory='Choose category';
+  late Book newBook;
+
+
+  var dropdownKey;
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    dropdownKey = GlobalKey();
+  }
   @override
   Widget build(BuildContext context) {
+
     return Scaffold(
       appBar: AppBar(
         title: const Text("Add Product Page"),
@@ -44,6 +59,9 @@ class _AddProductPageState extends State<AddProductPage> {
             key: _formKey,
             child: Column(
               children: [
+                SizedBox(height: 12,),
+                Center(child: Text("Add new Book",style: TextStyle(fontSize: 20,fontWeight: FontWeight.w600),)),
+                SizedBox(height: MediaQuery.of(context).size.height*0.03,),
                 AddBookInput(
                   validator: (value) {
                     if (value!.isEmpty) {
@@ -70,7 +88,7 @@ class _AddProductPageState extends State<AddProductPage> {
                 ),
                 AddBookInput(
                     validator: (String? value) {
-                      if (value!.length < 100) {
+                      if (value!.length < 1) {
                         return "Description must include characters more than 100";
                       } else {
                         return null;
@@ -96,50 +114,71 @@ class _AddProductPageState extends State<AddProductPage> {
                   label: "Price",
                   type: TextInputType.number,
                 ),
-                AddBookInput(
-                  validator: (value) {
-                    if (value!.isEmpty) {
-                      return "You have to enter url for main image of the book";
-                    } else {
-                      return null;
-                    }
-                  },
-                  controller: mainImage,
-                  hintText: "Enter url for main image of the book",
-                  label: "Main Image",
-                ),
-                ExpansionTile(
-                  key: _formKey,
-                  title: const Text("Category"),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
+                    Container(
+                      width: 180,
+                      child: TextFormField(
+                        validator: (value) {
+                          if(value!.length!=4){
+                            return "Invalid date";
+                          }
+                          else{
+                            return null;
+                          }
+                        },
+                        keyboardType: TextInputType.datetime,
+                        decoration: const InputDecoration(
+                          hintText: "Date of Publish",
+                          border: OutlineInputBorder()
+                        ),
+                      ),
+                    ),
                     StreamBuilder(
                       stream: context.read<CategoriesViewModel>().categories,
                       builder: (context, snapshot) {
-                        if(snapshot.hasData){
-                          return ListView.builder(
-                            itemCount: snapshot.data!.length,
-                              shrinkWrap: true,
-                              itemBuilder: (context, index) => InkWell(
-                                onTap: (){
-                                  // _formKey.currentState.collapse();
+                        if (snapshot.hasData) {
+                          List<CategoryModel>? categories=snapshot.data;
+                          return DropdownButtonHideUnderline(
+                              key: dropdownKey,
+                              child: DropdownButton(
+                                key: dropdownKey,
+                                hint:  Text(choosenCategory),
 
-                                },
-                                child: Container(
-                            padding: const EdgeInsets.all(2),
-                           margin: const EdgeInsets.all(4),
-                            height: 40,child: Text(snapshot.data![index].categoryName),),
-                              ));
+                                items: categories?.map((e) => DropdownMenuItem(
+                                    onTap: (){
+                                      choosenCategory=e.categoryName;
+                                      newBook.category=e.docId!;
+                                      Navigator.pop(dropdownKey.currentContext);
+                                      setState((){});
+                                    },
+                                    value: categories,
+                                    child: Text(e.categoryName))).toList(),
+                                onChanged: (value) {},));
                         }
                         return Container();
                       },
-                    )
+                    ),
                   ],
-                ),
-                IconButton(
-                    onPressed: () {
-                      _formKey.currentState!.validate();
-                    },
-                    icon: const Icon(Icons.add))
+                ), //category
+                GestureDetector(
+                  onTap: () {
+                    if(_formKey.currentState!.validate()){
+
+                    }
+                  },
+                  child: Container(
+                    margin: EdgeInsets.only(top: MediaQuery.of(context).size.height*0.036,left: MediaQuery.of(context).size.height*0.32),
+                    height: 40,
+                    width: 90,
+                    decoration: BoxDecoration(
+                      color: Colors.blue,
+                      borderRadius: BorderRadius.circular(4)
+                    ),
+                    child: Center(child: const Text("Next",style: TextStyle(color: Colors.white),)),
+                  ),
+                )
               ],
             ),
           ),
