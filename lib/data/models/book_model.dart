@@ -19,7 +19,7 @@ class Book {
   String categoryId;
   String productId;
   String author;
-  int price;
+  String price;
   String dateOfPublish;
   String description;
   String mainImage;
@@ -32,7 +32,7 @@ class Book {
   factory Book.fromJson(Map<String, dynamic> json) => Book(
     name: json["name"]??"no name",
     author: json["author"]??"no data",
-    price: json["price"]??0,
+    price: json["price"]??"0",
     dateOfPublish: json["dateOfPublish"]??"no data",
     description: json["description"]??"no data",
     mainImage: json["mainImage"]??"no data",

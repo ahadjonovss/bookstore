@@ -43,7 +43,7 @@ class AppRoutes{
       case RouteName.mngCategories:
         return MaterialPageRoute(builder: (_)=>const ManageCategoriesPage());
       case RouteName.addImagesToProduct:
-        return MaterialPageRoute(builder: (_)=>const AddImagesToProduct());
+        return MaterialPageRoute(builder: (_)=> AddImagesToProduct(newBook: args,));
       case RouteName.mngProducts:
         return MaterialPageRoute(builder: (_)=>const ManageProductsPage());
       case RouteName.mngUsers:

@@ -25,7 +25,7 @@ class _AddProductPageState extends State<AddProductPage> {
   // int price;
   TextEditingController price = TextEditingController();
 
-  // String dateOfPublish;
+  // String description;
   TextEditingController description = TextEditingController();
 
   // String mainImage;
@@ -34,17 +34,11 @@ class _AddProductPageState extends State<AddProductPage> {
   // List<String> images;
   TextEditingController count = TextEditingController();
 
+  TextEditingController dateOfPublish = TextEditingController();
+
   String choosenCategory='Choose category';
-  late Book newBook;
+  Book newBook=Book(categoryId: "", productId:  "", name:  "", author:  "", price: "1", dateOfPublish:  "", description:  "", mainImage:  "", images: [], bought: 0, rates: [], category:  "", count: 0);
 
-
-  var dropdownKey;
-  @override
-  void initState() {
-    // TODO: implement initState
-    super.initState();
-    dropdownKey = GlobalKey();
-  }
   @override
   Widget build(BuildContext context) {
 
@@ -59,8 +53,8 @@ class _AddProductPageState extends State<AddProductPage> {
             key: _formKey,
             child: Column(
               children: [
-                SizedBox(height: 12,),
-                Center(child: Text("Add new Book",style: TextStyle(fontSize: 20,fontWeight: FontWeight.w600),)),
+                const SizedBox(height: 12,),
+                const Center(child: Text("Add new Book",style: TextStyle(fontSize: 20,fontWeight: FontWeight.w600),)),
                 SizedBox(height: MediaQuery.of(context).size.height*0.03,),
                 AddBookInput(
                   validator: (value) {
@@ -117,9 +111,10 @@ class _AddProductPageState extends State<AddProductPage> {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    Container(
+                    SizedBox(
                       width: 180,
                       child: TextFormField(
+                        controller: dateOfPublish,
                         validator: (value) {
                           if(value!.length!=4){
                             return "Invalid date";
@@ -141,16 +136,13 @@ class _AddProductPageState extends State<AddProductPage> {
                         if (snapshot.hasData) {
                           List<CategoryModel>? categories=snapshot.data;
                           return DropdownButtonHideUnderline(
-                              key: dropdownKey,
                               child: DropdownButton(
-                                key: dropdownKey,
                                 hint:  Text(choosenCategory),
 
                                 items: categories?.map((e) => DropdownMenuItem(
                                     onTap: (){
                                       choosenCategory=e.categoryName;
                                       newBook.category=e.docId!;
-                                      Navigator.pop(dropdownKey.currentContext);
                                       setState((){});
                                     },
                                     value: categories,
@@ -165,6 +157,12 @@ class _AddProductPageState extends State<AddProductPage> {
                 GestureDetector(
                   onTap: () {
                     if(_formKey.currentState!.validate()){
+                      newBook.price=price.text;
+                      newBook.description=description.text;
+                      newBook.author=author.text;
+                      newBook.name=name.text;
+                      newBook.dateOfPublish=dateOfPublish.text;
+                      Navigator.pushNamed(context, RouteName.addImagesToProduct,arguments: newBook);
 
                     }
                   },
@@ -176,7 +174,7 @@ class _AddProductPageState extends State<AddProductPage> {
                       color: Colors.blue,
                       borderRadius: BorderRadius.circular(4)
                     ),
-                    child: Center(child: const Text("Next",style: TextStyle(color: Colors.white),)),
+                    child: const Center(child: Text("Next",style: TextStyle(color: Colors.white),)),
                   ),
                 )
               ],
