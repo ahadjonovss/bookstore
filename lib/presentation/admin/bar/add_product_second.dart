@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:shopee/components/routes/app_routes.dart';
 import 'package:shopee/data/models/book_model.dart';
 import 'package:shopee/data/services/file_uploader.dart';
 
@@ -267,7 +268,31 @@ class _AddImagesToProductState extends State<AddImagesToProduct> {
                                           style: TextStyle(color: Colors.white),
                                         )),
                                       ),
-                                    ))
+                                    )),
+                                Visibility(
+                                  visible: isHasPhoto,
+                                    child: Container(
+                                      margin: EdgeInsets.only(
+                                          top: MediaQuery.of(context)
+                                              .size
+                                              .height *
+                                              0.036,
+                                          left: MediaQuery.of(context)
+                                              .size
+                                              .height *
+                                              0.32),
+                                      height: 40,
+                                      width: 90,
+                                      decoration: BoxDecoration(
+                                          color: Colors.blue,
+                                          borderRadius:
+                                          BorderRadius.circular(4)),
+                                      child: const Center(
+                                          child: Text(
+                                            "Next",
+                                            style: TextStyle(color: Colors.white),
+                                          )),
+                                    ) )
                               ],
                             ),
                           ),
@@ -275,7 +300,38 @@ class _AddImagesToProductState extends State<AddImagesToProduct> {
                       ),
                     )
                   ],
-                ))
+                )),
+            Visibility(
+                visible: isHasPhoto,
+                child: InkWell(
+                  onTap: (){
+                    if(widget.newBook.mainImage.isNotEmpty){
+                      Navigator.pushNamed(context, RouteName.addAllImagesToProduct,arguments: widget.newBook);
+                    }
+                  },
+                  child: Container(
+                    margin: EdgeInsets.only(
+                        top: MediaQuery.of(context)
+                            .size
+                            .height *
+                            0.036,
+                        left: MediaQuery.of(context)
+                            .size
+                            .height *
+                            0.32),
+                    height: 40,
+                    width: 90,
+                    decoration: BoxDecoration(
+                        color: Colors.blue,
+                        borderRadius:
+                        BorderRadius.circular(4)),
+                    child: const Center(
+                        child: Text(
+                          "Next",
+                          style: TextStyle(color: Colors.white),
+                        )),
+                  ),
+                ) )
           ],
         ),
       ),

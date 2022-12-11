@@ -30,7 +30,8 @@ class RouteName{
   static const mngCategories="mngCategories";
   static const adminPage="adminPage";
   static const addProductPage="addProductPage";
-  static const addImagesToProduct="addImagesToProduct";
+  static const addImagesToProduct="addImageToProduct";
+  static const addAllImagesToProduct="addAllImagesToProduct";
 }
 
 class AppRoutes{
@@ -42,6 +43,8 @@ class AppRoutes{
       //admin pages
       case RouteName.mngCategories:
         return MaterialPageRoute(builder: (_)=>const ManageCategoriesPage());
+      case RouteName.addAllImagesToProduct:
+        return MaterialPageRoute(builder: (_)=> AddImagesToProduct(newBook: args));
       case RouteName.addImagesToProduct:
         return MaterialPageRoute(builder: (_)=> AddImagesToProduct(newBook: args,));
       case RouteName.mngProducts:
