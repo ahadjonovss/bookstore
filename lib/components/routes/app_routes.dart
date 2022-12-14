@@ -14,6 +14,8 @@ import 'package:shopee/presentation/home/bar/tabs/profile_page.dart';
 import 'package:shopee/presentation/home/bar/tabs/search_page.dart';
 import 'package:shopee/presentation/splash_page.dart';
 
+import '../../presentation/admin/add_images_to_book.dart';
+
 class RouteName{
   static const splash="splash";
   static const signIn="signin";
@@ -44,7 +46,7 @@ class AppRoutes{
       case RouteName.mngCategories:
         return MaterialPageRoute(builder: (_)=>const ManageCategoriesPage());
       case RouteName.addAllImagesToProduct:
-        return MaterialPageRoute(builder: (_)=> AddImagesToProduct(newBook: args));
+        return MaterialPageRoute(builder: (_)=> AddAllImagesToBook(newbook: args));
       case RouteName.addImagesToProduct:
         return MaterialPageRoute(builder: (_)=> AddImagesToProduct(newBook: args,));
       case RouteName.mngProducts:

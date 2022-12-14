@@ -115,14 +115,6 @@ class _AddProductPageState extends State<AddProductPage> {
                       width: 180,
                       child: TextFormField(
                         controller: dateOfPublish,
-                        validator: (value) {
-                          if(value!.length!=4){
-                            return "Invalid date";
-                          }
-                          else{
-                            return null;
-                          }
-                        },
                         keyboardType: TextInputType.datetime,
                         decoration: const InputDecoration(
                           hintText: "Date of Publish",
@@ -138,11 +130,10 @@ class _AddProductPageState extends State<AddProductPage> {
                           return DropdownButtonHideUnderline(
                               child: DropdownButton(
                                 hint:  Text(choosenCategory),
-
                                 items: categories?.map((e) => DropdownMenuItem(
                                     onTap: (){
                                       choosenCategory=e.categoryName;
-                                      newBook.category=e.docId!;
+                                      newBook.categoryId=e.docId!;
                                       setState((){});
                                     },
                                     value: categories,

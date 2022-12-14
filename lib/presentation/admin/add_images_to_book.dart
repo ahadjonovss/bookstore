@@ -1,18 +1,21 @@
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:provider/provider.dart';
+import 'package:shopee/components/routes/app_routes.dart';
+import 'package:shopee/view_models/admin/products_view_model.dart';
 
 import '../../data/models/book_model.dart';
 import '../../data/services/file_uploader.dart';
 
-class AddToImagesToBook extends StatefulWidget {
+class AddAllImagesToBook extends StatefulWidget {
   Book newbook;
-   AddToImagesToBook({required this.newbook,Key? key}) : super(key: key);
+  AddAllImagesToBook({required this.newbook,Key? key}) : super(key: key);
 
   @override
-  State<AddToImagesToBook> createState() => _AddToImagesToBookState();
+  State<AddAllImagesToBook> createState() => _AddAllImagesToBookState();
 }
 
-class _AddToImagesToBookState extends State<AddToImagesToBook> {
+class _AddAllImagesToBookState extends State<AddAllImagesToBook> {
   final ImagePicker _picker = ImagePicker();
   String imageUrl = "";
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
@@ -128,8 +131,8 @@ class _AddToImagesToBookState extends State<AddToImagesToBook> {
                                     child: GestureDetector(
                                       onTap: () {
                                         if (_formKey.currentState!.validate()) {
-                                          widget.newbook.mainImage =
-                                              imgctrl.text;
+                                          widget.newbook.images.add(imgctrl.text);
+                                          imgctrl.clear();
                                           isHasPhoto = true;
                                           setState(() {});
                                         }
@@ -154,7 +157,7 @@ class _AddToImagesToBookState extends State<AddToImagesToBook> {
                                             BorderRadius.circular(4)),
                                         child: const Center(
                                             child: Text(
-                                              "Save",
+                                              "Add",
                                               style: TextStyle(
                                                   color: Colors.white),
                                             )),
@@ -279,30 +282,36 @@ class _AddToImagesToBookState extends State<AddToImagesToBook> {
                                     )),
                                 Visibility(
                                     visible: isHasPhoto,
-                                    child: Container(
-                                      margin: EdgeInsets.only(
-                                          top: MediaQuery
-                                              .of(context)
-                                              .size
-                                              .height *
-                                              0.036,
-                                          left: MediaQuery
-                                              .of(context)
-                                              .size
-                                              .height *
-                                              0.32),
-                                      height: 40,
-                                      width: 90,
-                                      decoration: BoxDecoration(
-                                          color: Colors.blue,
-                                          borderRadius:
-                                          BorderRadius.circular(4)),
-                                      child: const Center(
-                                          child: Text(
-                                            "Next",
-                                            style: TextStyle(
-                                                color: Colors.white),
-                                          )),
+                                    child: InkWell(
+                                      onTap: (){
+                                        context.read<ProductsViewModel>().addBook(widget.newbook);
+                                        Navigator.pushNamedAndRemoveUntil(context, RouteName.adminPage, (route) => false);
+                                      },
+                                      child: Container(
+                                        margin: EdgeInsets.only(
+                                            top: MediaQuery
+                                                .of(context)
+                                                .size
+                                                .height *
+                                                0.036,
+                                            left: MediaQuery
+                                                .of(context)
+                                                .size
+                                                .height *
+                                                0.32),
+                                        height: 40,
+                                        width: 90,
+                                        decoration: BoxDecoration(
+                                            color: Colors.blue,
+                                            borderRadius:
+                                            BorderRadius.circular(4)),
+                                        child: const Center(
+                                            child: Text(
+                                              "Done",
+                                              style: TextStyle(
+                                                  color: Colors.white),
+                                            )),
+                                      ),
                                     ))
                               ],
                             ),
@@ -314,29 +323,35 @@ class _AddToImagesToBookState extends State<AddToImagesToBook> {
                 )),
             Visibility(
                 visible: isHasPhoto,
-                child: Container(
-                  margin: EdgeInsets.only(
-                      top: MediaQuery
-                          .of(context)
-                          .size
-                          .height *
-                          0.036,
-                      left: MediaQuery
-                          .of(context)
-                          .size
-                          .height *
-                          0.32),
-                  height: 40,
-                  width: 90,
-                  decoration: BoxDecoration(
-                      color: Colors.blue,
-                      borderRadius:
-                      BorderRadius.circular(4)),
-                  child: const Center(
-                      child: Text(
-                        "Next",
-                        style: TextStyle(color: Colors.white),
-                      )),
+                child: InkWell(
+                  onTap: (){
+                    context.read<ProductsViewModel>().addBook(widget.newbook);
+                    Navigator.pushNamedAndRemoveUntil(context, RouteName.adminPage, (route) => false);
+                  },
+                  child: Container(
+                    margin: EdgeInsets.only(
+                        top: MediaQuery
+                            .of(context)
+                            .size
+                            .height *
+                            0.036,
+                        left: MediaQuery
+                            .of(context)
+                            .size
+                            .height *
+                            0.32),
+                    height: 40,
+                    width: 90,
+                    decoration: BoxDecoration(
+                        color: Colors.blue,
+                        borderRadius:
+                        BorderRadius.circular(4)),
+                    child: const Center(
+                        child: Text(
+                          "Done",
+                          style: TextStyle(color: Colors.white),
+                        )),
+                  ),
                 ))
           ],
         ),
