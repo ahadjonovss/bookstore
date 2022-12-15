@@ -5,9 +5,11 @@ import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:shopee/components/routes/app_routes.dart';
+import 'package:shopee/data/repositories/admin/auth_repository.dart';
 import 'package:shopee/data/repositories/admin/categories_repository.dart';
 import 'package:shopee/data/repositories/admin/products_repository.dart';
 import 'package:shopee/data/repositories/auth_repository.dart';
+import 'package:shopee/view_models/admin/auth_view_model.dart';
 import 'package:shopee/view_models/admin/categories_view_model.dart';
 import 'package:shopee/view_models/admin/products_view_model.dart';
 import 'package:shopee/view_models/auth_view_model.dart';
@@ -29,6 +31,7 @@ void main() async {
       create: (context) => AuthViewModel(
           authRepository: AuthRepository(firebaseAuth: FirebaseAuth.instance)),
     ),
+    ChangeNotifierProvider(create: (context)=>UsersViewModel(authRepository: UserRepository(firebaseFirestore: FirebaseFirestore.instance))),
     ChangeNotifierProvider(create: (context) => CategoriesViewModel(categoriesRepository: CategoriesRepository(firebaseFirestore: FirebaseFirestore.instance)),),
     ChangeNotifierProvider(create: (context)=>ProductsViewModel(productsRepository: ProductsRepository(firebaseFirestore: FirebaseFirestore.instance)))
   ], child: MyApp()));
